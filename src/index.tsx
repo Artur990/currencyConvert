@@ -1,15 +1,55 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { BrowserRouter } from "react-router-dom";
+import {
+  persistQueryClient,
+  PersistQueryClientProvider,
+  removeOldestQuery,
+} from "@tanstack/react-query-persist-client";
+import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
+import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
+
+export const queryClient = new QueryClient();
+// const localStoragePersister = createSyncStoragePersister({
+//   storage: window.localStorage,
+//   retry: removeOldestQuery,
+//   // options: CreateSyncStoragePersisterOptions,
+// });
+// const sessionStoragePersister = createSyncStoragePersister({ storage: window.sessionStorage })
+const localStoragePersister = createSyncStoragePersister({
+  storage: window.localStorage,
+});
+
+// const persister = createSyncStoragePersister({
+//   storage: {
+//     getItem: window.localStorage.getItem,
+//     setItem: window.localStorage.setItem,
+//     removeItem: window.localStorage.removeItem,
+//   },
+// });
+// queryClient.setQueryData('values', old => )
+// fetchQuery([],())
+
 root.render(
   <React.StrictMode>
-    <App />
+    <PersistQueryClientProvider
+      client={queryClient}
+      persistOptions={{ persister: localStoragePersister }}
+    >
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+      <ReactQueryDevtools />
+    </PersistQueryClientProvider>
   </React.StrictMode>
 );
 
