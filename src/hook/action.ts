@@ -1,6 +1,6 @@
 import localforage from 'localforage'
 import { useQuery, useQueryClient } from 'react-query'
-import { GetConvertResponse } from '../types/currencyTypes'
+import { IGetConvertResponse } from '../types/currencyTypes'
 
 export const HISTORY = 'History'
 export const getCurr = async () => {
@@ -19,7 +19,7 @@ export const useLocalStorage = () => {
 }
 
 export const setLocalStorage = async (
-  props: GetConvertResponse | undefined
+  props: IGetConvertResponse | undefined
 ) => {
   try {
     const data = (await localforage.getItem('currency')) as any[]

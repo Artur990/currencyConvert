@@ -5,15 +5,15 @@ import { useNavigate } from 'react-router-dom'
 
 import { CurrenciesServices } from '../service/CurrenciesServices'
 
-import { GetConvertData } from '../types/currencyTypes'
+import { IGetConvertData } from '../types/currencyTypes'
 import { HISTORY, setLocalStorage } from './action'
 
 export const CONVERT_KEY = 'CurrenciesExChange'
 
-export const useConvertCurrency = () => {
+export const useCurrencyConvert = () => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
-  const { handleSubmit, watch, ...restForm } = useForm<GetConvertData>({})
+  const { handleSubmit, watch, ...restForm } = useForm<IGetConvertData>({})
   const { from, to, amount } = watch()
 
   const query = useQuery({
@@ -24,7 +24,6 @@ export const useConvertCurrency = () => {
   const handleConvert = useCallback(
     handleSubmit(() => {
       query.refetch()
-      console.log(query.data)
       if (query.data) {
         setLocalStorage(query.data)
         navigate('/history')

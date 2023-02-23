@@ -1,40 +1,40 @@
 import { useGetAllCurrencies } from '../hook/useGetAllCurrencies'
-import { useConvertCurrency } from '../hook/useConvertCurrency'
+import { useCurrencyConvert } from '../hook/useCurrencyConvert'
 
-const Currencyconverter = () => {
+const CurrencyConvert = () => {
   const {
     form: {
       register,
       handleConvert,
       formState: { errors },
     },
-  } = useConvertCurrency()
+  } = useCurrencyConvert()
 
   const { query } = useGetAllCurrencies()
 
   if (query.isLoading) {
     return (
-      <div className="h-screen w-screen  bg-slate-700 text-white p-2  text-2xl font-bold ">
+      <div className="h-screen w-screen  bg-slate-700 p-2 text-2xl  font-bold text-white ">
         Loading...
       </div>
     )
   }
   if (query.isError) {
     return (
-      <div className="h-screen w-screen  bg-slate-700 text-white p-2  text-2xl font-bold ">
+      <div className="h-screen w-screen  bg-slate-700 p-2 text-2xl  font-bold text-white ">
         Something went wrong
       </div>
     )
   }
 
   return (
-    <div className="h-screen w-screen min-w-[320px] flex justify-center 	items-center flex-col  bg-slate-700">
-      <div className="w-full sm:w-8/12 max-h-60 bg-orange  border-b-gray-light flex justify-between g-12    rounded-sm">
-        <div className=" bg-slate-400  w-full sm:w-3/4 h-32 rounded-md p-1">
+    <div className="flex h-screen w-screen min-w-[320px] flex-col 	items-center justify-center  bg-slate-700">
+      <div className="bg-orange border-b-gray-light g-12 flex  max-h-60 w-full justify-between rounded-sm    sm:w-8/12">
+        <div className=" h-32  w-full rounded-md bg-slate-400 p-1 sm:w-3/4">
           <form onSubmit={handleConvert}>
-            <div className=" w-full h-35   bg-slate-400 p-3 rounded-md gap-2 flex justify-between ">
+            <div className=" h-35 flex   w-full justify-between gap-2 rounded-md bg-slate-400 p-3 ">
               <div className="w-2/6">
-                <h2 className="w-full text-lg font-bold text-left">Amount</h2>
+                <h2 className="w-full text-left text-lg font-bold">Amount</h2>
                 <input
                   type="number"
                   min={1}
@@ -46,7 +46,7 @@ const Currencyconverter = () => {
                 )}
               </div>
               <div className="w-2/6">
-                <h2 className="w-full text-lg font-bold text-left">From</h2>
+                <h2 className="w-full text-left text-lg font-bold">From</h2>
                 <select
                   {...register('from')}
                   className="w-full font-bold  text-slate-700 "
@@ -60,10 +60,10 @@ const Currencyconverter = () => {
                 </select>
               </div>
               <div className="w-2/6">
-                <h2 className="w-full text-lg font-bold text-left">To</h2>
+                <h2 className="w-full text-left text-lg font-bold">To</h2>
                 <select
                   {...register('to')}
-                  className="w-full font-bold text-slate-700  "
+                  className="w-full  font-bold text-slate-700 "
                 >
                   {query.data?.results &&
                     Object.keys(query.data?.results).map((curr) => (
@@ -78,7 +78,7 @@ const Currencyconverter = () => {
               <button
                 type="submit"
                 onClick={handleConvert}
-                className="px-4 py-1 m-2 bg-slate-200 font-medium text-cyan-800 rounded-lg hover:opacity-60 "
+                className="m-2 rounded-lg bg-slate-200 px-4 py-1 font-medium text-cyan-800 hover:opacity-60 "
               >
                 Convert
               </button>
@@ -90,4 +90,4 @@ const Currencyconverter = () => {
   )
 }
 
-export default Currencyconverter
+export default CurrencyConvert

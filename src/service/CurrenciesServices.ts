@@ -1,17 +1,17 @@
-import { apiClient } from '../libs/axios'
+import { apiClient } from '../configs/axios'
 import {
-  GetConvertData,
-  GetConvertResponse,
-  GetCurrenciesResponse,
+  IGetConvertData,
+  IGetConvertResponse,
+  IGetCurrenciesResponse,
 } from '../types/currencyTypes'
 
 const getCurrencies = async () => {
-  const res = await apiClient.get<GetCurrenciesResponse>('fetch-all')
+  const res = await apiClient.get<IGetCurrenciesResponse>('fetch-all')
   return res.data
 }
 
-const getConvert = async ({ from, to, amount }: GetConvertData) => {
-  const res = await apiClient.get<GetConvertResponse>('convert', {
+const getConvert = async ({ from, to, amount }: IGetConvertData) => {
+  const res = await apiClient.get<IGetConvertResponse>('convert', {
     params: { from, to, amount },
   })
   return res.data

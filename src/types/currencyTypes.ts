@@ -1,17 +1,17 @@
-export interface GetConvertResponse {
+export interface IGetConvertResponse {
   base: string
   amount: number
   result: { [key: string]: number }
   ms: number
 }
 
-export interface GetConvertData {
+export interface IGetConvertData {
   from: string
   to: string
   amount: number
 }
 
-export interface GetCurrenciesResponse {
+export interface IGetCurrenciesResponse {
   base: string
   amount: number
   results: { [key: string]: number }
